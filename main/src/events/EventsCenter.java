@@ -3,7 +3,7 @@ package events;
 import com.google.common.eventbus.EventBus;
 
 /**
- * Manages Events raised in the application
+ * Manages Events raised in the application.
  */
 public class EventsCenter {
     private static EventsCenter singleton;
@@ -13,12 +13,12 @@ public class EventsCenter {
         this.eventBus = new EventBus();
     }
 
-    public EventsCenter getSingleton() {
-        if (this.singleton == null) {
-            this.singleton = new EventsCenter();
+    public static EventsCenter getSingleton() {
+        if (singleton == null) {
+            singleton = new EventsCenter();
         }
 
-        return this.singleton;
+        return singleton;
     }
 
     public void registerHandler(Object handler) {
