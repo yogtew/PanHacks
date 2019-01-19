@@ -19,5 +19,6 @@ public class PanHacks extends Application {
         game = new Game(logger);
         game.init();
         game.setVisible(true);
+        game.start();
     }
 }

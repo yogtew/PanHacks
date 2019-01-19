@@ -20,12 +20,12 @@ public class Game extends JFrame {
 
     public Game(Logger logger) {
         this.logger = logger;
-        initUI();
+        init();
     }
 
     public void initUI() {
 
-       add(new Renderer());
+       add(renderer);
        setTitle("PanHacks Game");
        setSize(1500, 1200);
        setLocationRelativeTo(null);
@@ -35,23 +35,34 @@ public class Game extends JFrame {
     /**
      * Core gameplay loop, calls the update method of all entities inside GameState
      */
-    public void update() {
+    public void update() throws InterruptedException {
         // gets latest inputs from clients
-        inputManager.updateInputs(networkManager.getInputs());
+        // inputManager.updateInputs(networkManager.getInputs());
         gameState.update(inputManager);
-        renderer.draw(gameState);
         if (isServer) {
             networkManager.push(gameState);
         }
 
+
+        Thread.sleep(15);
+        update();
     }
 
     public void init() {
         id = generateId();
         gameState = new GameState();
-        renderer = new Renderer();
+        renderer = new Renderer(gameState);
         networkManager = new NetworkManager();
+        initUI();
         logger.log(Level.INFO, "Successfully initialized with id " + id);
+    }
+
+    public void start() {
+        try {
+            update();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private int generateId() {
