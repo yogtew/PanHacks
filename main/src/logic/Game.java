@@ -1,5 +1,6 @@
 package logic;
 
+import graphics.Maze;
 import graphics.Renderer;
 import input.GameKeyListener;
 import input.InputManager;
@@ -30,7 +31,7 @@ public class Game extends JFrame {
 
        add(renderer);
        setTitle("PanHacks Game");
-       setSize(1500, 1200);
+       setSize(1200, 800);
        setLocationRelativeTo(null);
        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -55,7 +56,7 @@ public class Game extends JFrame {
 
     public void init() {
         id = generateId();
-        gameState = new GameState();
+        gameState = new GameState(Maze.generateGrid());
         renderer = new Renderer(gameState);
         renderer.addKeyListener(gameKeyListener);
         renderer.setFocusable(true);

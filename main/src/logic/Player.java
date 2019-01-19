@@ -5,18 +5,36 @@ import input.InputManager;
 
 public class Player extends Entity {
 
+    public int id;
 
-    public Player(Vector center, float radius) {
+    public Player(Vector center, float radius, int id) {
         super();
         this.center = center;
         this.radius = radius;
+        this.id = id;
 
+        InputManager.initialize(id);
     }
 
     @Override
     public void update(InputManager inputManager, GameState gameState) {
         super.update(inputManager, gameState);
-        this.cSpeed = this.cSpeed.add(new Vector(10f, 0));
+
+        if (InputManager.getKey("up", id)) {
+            this.cSpeed.y -= 5;
+        }
+
+        if (InputManager.getKey("down", id)) {
+            this.cSpeed.y += 5;
+        }
+
+        if (InputManager.getKey("left", id)) {
+            this.cSpeed.x -= 5;
+        }
+
+        if (InputManager.getKey("right", id)) {
+            this.cSpeed.x += 5;
+        }
     }
 
     /**
