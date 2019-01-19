@@ -1,11 +1,11 @@
 package input;
 
 public class InputManager {
-    public Input getInput(String key) {
-        return new Input();
+    public GameKeyListener getInput(String key) {
+        return new GameKeyListener();
     }
 
-    public void updateInputs(Input input) {
+    public void updateInputs(GameKeyListener gameKeyListener) {
 
     }
 
