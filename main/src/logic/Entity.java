@@ -1,18 +1,32 @@
 package logic;
 
-import java.util.Vector;
-
 import input.InputManager;
 
 public class Entity {
-    private Vector<Float> pos;
-    private Vector<Float> velocity;
+
+    public logic.Vector cOldSpeed;
+    public logic.Vector cSpeed;
+
+    public Vector center;
+    public float radius;
+
     public void update(InputManager inputManager) {
         // update position
+
 
         // physics stuff
 
         // collision detection
+        updatePhysics();
+    }
+
+    /**
+     *Updates the position
+     */
+    public void updatePhysics() {
+        cOldSpeed = cSpeed;
+        Vector dist = cSpeed.mulConst(Time.deltaTime);
+        center = center.add(dist); //updating circle's center += speed*deltaTime, updating circle's new position
     }
 
     public void draw() {
