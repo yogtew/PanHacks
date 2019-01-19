@@ -1,6 +1,8 @@
 package graphics;
 
 import logic.GameState;
+import logic.Player;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -41,6 +43,11 @@ public class Renderer extends JPanel {
     }
 
     public void draw() {
-        drawCircle(100, 100, 50, 50);
+        for (Player p:gameState.getPlayers()) {
+            float x = p.center.x;
+            float y = p.center.y;
+            float r = p.radius;
+            drawCircle(x, y, r, r);
+        }
     }
 }

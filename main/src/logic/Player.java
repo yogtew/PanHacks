@@ -1,22 +1,23 @@
 package logic;
 
 
+import input.InputManager;
+
 public class Player extends Entity {
 
-    public Vector cOldPosition;
-    public Vector cPosition;
 
-    public Vector cOldSpeed;
-    public Vector cSpeed;
 
-    public Vector center;
-    public Vector radius;
-
-    public Player(Vector center, Vector radius) {
+    public Player(Vector center, float radius) {
 
         this.center = center;
         this.radius = radius;
 
+    }
+
+    @Override
+    public void update(InputManager inputManager) {
+        super.update(inputManager);
+        this.cSpeed = this.cSpeed.add(new Vector(0.01f, 0));
     }
 
     /**
@@ -24,29 +25,12 @@ public class Player extends Entity {
      *more or less than the sum of the two radii
      */
     public boolean Overlaps(Player other) {
-        if ( Math.abs(center.x - other.center.x) > radius.x + other.radius.x ) {
+        if ( Math.abs(center.x - other.center.x) > radius + other.radius ) {
             return false;
-        } else if ( Math.abs(center.y - other.center.y) > radius.y + other.radius.y ) {
+        } else if ( Math.abs(center.y - other.center.y) > radius + other.radius ) {
             return false;
         } else {
             return true;
         }
     }
-
-    /**
-     *Updates the position
-     */
-    public void UpdatePhysics() {
-
-        cOldPosition = cPosition;
-        cOldSpeed = cSpeed;
-
-        Vector dist = cSpeed.mulConst(Time.deltaTime);
-        cPosition = cPosition.add(dist); //newPosition += speed*deltaTime, updating circle's new position
-        Vector center = this.center;
-        center = center.add(dist); //updating circle's center
-
-    }
-
-
 }
