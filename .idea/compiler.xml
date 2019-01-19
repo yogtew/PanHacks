@@ -2,6 +2,7 @@
 <project version="4">
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="MyPanHacks" options="--add-modules=javafx.graphics" />
       <module name="main" options="--add-modules=javafx.graphics" />
     </option>
   </component>

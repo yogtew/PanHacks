@@ -3,12 +3,13 @@ package logic;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 import graphics.Renderer;
 import input.InputManager;
 import network.NetworkManager;
 
-public class Game {
+public class Game extends JFrame {
     private Renderer renderer;
     private GameState gameState;
     private NetworkManager networkManager;
@@ -19,6 +20,16 @@ public class Game {
 
     public Game(Logger logger) {
         this.logger = logger;
+        initUI();
+    }
+
+    public void initUI() {
+
+       add(new Renderer());
+       setTitle("PanHacks Game");
+       setSize(1500, 1200);
+       setLocationRelativeTo(null);
+       setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     /**
