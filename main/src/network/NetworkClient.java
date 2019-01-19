@@ -23,7 +23,7 @@ public class NetworkClient {
     Socket clientSocket;
     PrintWriter out;
     BufferedReader in;
-    private ArrayList<NetworkThread> threads;
+    private ArrayList<NetworkClientThread> threads;
 
     public NetworkClient() {
         threads = new ArrayList<>();
@@ -31,7 +31,7 @@ public class NetworkClient {
             serverSocket = new ServerSocket(portNumber);
             while (true) {
                 clientSocket = serverSocket.accept();
-                NetworkThread thread = new NetworkThread(clientSocket);
+                NetworkClientThread thread = new NetworkClientThread(clientSocket);
                 threads.add(thread);
             }
         } catch (IOException exception) {
@@ -44,19 +44,19 @@ public class NetworkClient {
     }
 
     public void push(GameState gameState) {
-        for (NetworkThread t: threads) {
+        for (NetworkClientThread t: threads) {
             t.push(gameState);
         }
     }
 }
 
-class NetworkThread extends Thread {
+class NetworkClientThread extends Thread {
     Socket clientSocket;
     PrintWriter out;
     BufferedReader in;
     public int id;
 
-    NetworkThread(Socket clientSocket) {
+    NetworkClientThread(Socket clientSocket) {
         String fromClient;
         this.clientSocket = clientSocket;
         try {

@@ -10,11 +10,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.google.common.eventbus.Subscribe;
-import events.KeyPressedEvent;
-import input.GameKeyListener;
-import input.InputManager;
 import logic.GameState;
 
 /**
@@ -29,7 +24,7 @@ public class NetworkServer extends Thread {
     Socket clientSocket;
     PrintWriter out;
     BufferedReader in;
-    private ArrayList<NetworkThread> threads;
+    private ArrayList<NetworkServerThread> threads;
 
     public NetworkServer() {
         threads = new ArrayList<>();
@@ -37,7 +32,7 @@ public class NetworkServer extends Thread {
             serverSocket = new ServerSocket(portNumber);
             while (true) {
                 clientSocket = serverSocket.accept();
-                NetworkThread thread = new NetworkThread(clientSocket);
+                NetworkServerThread thread = new NetworkServerThread(clientSocket);
                 threads.add(thread);
             }
         } catch (IOException exception) {
@@ -50,19 +45,19 @@ public class NetworkServer extends Thread {
     }
 
     public void push(GameState gameState) {
-        for (NetworkThread t: threads) {
+        for (NetworkServerThread t: threads) {
             t.push(gameState);
         }
     }
 }
 
-class NetworkThread extends Thread {
+class NetworkServerThread extends Thread {
     Socket clientSocket;
     PrintWriter out;
     BufferedReader in;
     public int id;
 
-    NetworkThread(Socket clientSocket) {
+    NetworkServerThread(Socket clientSocket) {
         String fromClient;
         this.clientSocket = clientSocket;
         try {
