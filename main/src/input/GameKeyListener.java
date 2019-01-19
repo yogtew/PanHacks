@@ -1,5 +1,7 @@
 package input;
 
+import javax.sound.midi.SysexMessage;
+
 import events.EventsCenter;
 import events.KeyPressedEvent;
 import events.KeyReleasedEvent;
@@ -31,11 +33,13 @@ public class GameKeyListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        System.out.printf("pressed: %c\n", e.getKeyChar());
         EventsCenter.getSingleton().post(new KeyPressedEvent(e));
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        System.out.printf("released: %c\n", e.getKeyChar());
         EventsCenter.getSingleton().post(new KeyReleasedEvent(e));
     }
 }

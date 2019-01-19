@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 import graphics.Renderer;
+import input.GameKeyListener;
 import input.InputManager;
 import network.NetworkManager;
 
@@ -17,9 +18,11 @@ public class Game extends JFrame {
     private boolean isServer;
     private int id;
     private Logger logger;
+    private GameKeyListener gameKeyListener;
 
     public Game(Logger logger) {
         this.logger = logger;
+        gameKeyListener = GameKeyListener.getSingleton();
         init();
     }
 
@@ -54,6 +57,8 @@ public class Game extends JFrame {
         id = generateId();
         gameState = new GameState();
         renderer = new Renderer(gameState);
+        renderer.addKeyListener(gameKeyListener);
+        renderer.setFocusable(true);
         networkManager = new NetworkManager();
         initUI();
         Time.lastTime = System.currentTimeMillis();
