@@ -40,12 +40,30 @@ public class Renderer extends JPanel {
         g2d.fill(circle);
     }
 
+    private void drawWall(float x, float y, float w, float h) {
+        Graphics2D g2d = (Graphics2D) graphics;
+        g2d.setColor(Color.black);
+
+        g2d.drawRect((int) x, (int) y, (int) w, (int) h);
+        g2d.fillRect((int) x, (int) y, (int) w, (int) h);
+    }
+
     public void draw() {
         for (Player p:gameState.getPlayers()) {
             float x = p.center.x;
             float y = p.center.y;
             float r = p.radius;
             drawCircle(x, y, r, r);
+        }
+
+        // drawWall(100, 100, 100, 100);
+
+        for (Wall p:gameState.getWalls()) {
+            float x = p.x;
+            float y = p.y;
+            float w = p.side1;
+            float h = p.side2;
+            drawWall(x, y, w, h);
         }
     }
 }

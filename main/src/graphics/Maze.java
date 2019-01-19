@@ -2,43 +2,38 @@ package graphics;
 
 import com.opencsv.CSVReader;
 
+import java.awt.*;
 import java.io.FileReader;
 import java.io.IOException;
-import graphics.Square.BlackSquare;
-
-import javax.swing.*;
+import java.util.ArrayList;
 
 public class Maze{
 
-    public static void main(String[] args) {
+    public static ArrayList<Wall> generateGrid() {
         String csvFile = "main/src/graphics/maze4.csv";
 
         CSVReader reader = null;
         try {
             reader = new CSVReader(new FileReader(csvFile));
+            ArrayList<Wall> walls = new ArrayList<>();
             String[] line;
-            while ((line = reader.readNext()) != null) {
+            for(int y = 0; y < 100; y++) {
+                line = reader.readNext();
                 for(int i = 0; i < 150; i++) {
 
-                    int y = i / 150;
-                    int x = i - (150 * y);
-
-                    if(line[i] == String.valueOf(2)) {
-                        Square sqr = new BlackSquare(x, y, 32, 32);
-                        JFrame frame = new JFrame("Grid");
-                        frame.add(sqr);
-                        frame.setVisible(true);
-
-                    } else {
-                        Square sqr = new Square(x, y, 32, 32);
-                        JFrame frame = new JFrame("Grid");
-                        frame.add(sqr);
-                        frame.setVisible(true);
+                    int x = i;
+                    Wall sqr;
+                    if(line[i].equals(String.valueOf(2))) {
+                        sqr = new Wall(x * 8, y * 8, 8, 8, Color.black);
+                        walls.add(sqr);
                     }
+
                 }
             }
+            return walls;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
     }
 }

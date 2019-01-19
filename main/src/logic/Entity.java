@@ -21,12 +21,12 @@ public class Entity {
         // update positions
         updatePhysics();
         // check if collision occurs
-        ArrayList<Player> players = gameState.getPlayers();
+       /* ArrayList<Player> players = gameState.getPlayers();
         Player player1 = players.get(0);
         Player player2 = players.get(1);
         if (player1.overlaps(player2)) {
             player1.collisionControl(player2);
-        }
+        }*/
     }
 
     /**
