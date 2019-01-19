@@ -11,4 +11,8 @@ public class GameState {
             p.update(inputManager);
         }
     }
+
+    public String serialize() {
+        return "";
+    }
 }
