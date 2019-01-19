@@ -12,12 +12,16 @@ detects which keys are pressed, and post events to event class
 public class GameKeyListener implements KeyListener {
    private static GameKeyListener singleton;
 
+   private GameKeyListener() {
+       //
+   }
+
    private static GameKeyListener getSingleton() {
        if (singleton == null) {
             singleton = new GameKeyListener();
             EventsCenter.getSingleton().registerHandler(singleton);
        }
-       return getSingleton();
+       return singleton;
    }
 
     @Override
