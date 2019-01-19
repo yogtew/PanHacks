@@ -2,7 +2,7 @@ package input;
 
 public class InputManager {
     public GameKeyListener getInput(String key) {
-        return new GameKeyListener();
+        return GameKeyListener.getSingleton();
     }
 
     public void updateInputs(GameKeyListener gameKeyListener) {
