@@ -18,5 +18,6 @@ public class PanHacks extends Application {
         public void start(Stage primaryStage) throws Exception {
         game = new Game(logger);
         game.init();
+        game.setVisible(true);
     }
 }
