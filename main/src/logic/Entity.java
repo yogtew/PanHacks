@@ -33,6 +33,7 @@ public class Entity {
      * Updates the position
      */
     public void updatePhysics() {
+        cSpeed = cSpeed.mulConst(0.95f);
         Vector dist = cSpeed.mulConst(Time.deltaTime);
         center = center.add(dist); //updating circle's center += speed*deltaTime, updating circle's new position
     }
