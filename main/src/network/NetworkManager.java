@@ -1,12 +1,12 @@
 package network;
 
-import input.Input;
+import input.GameKeyListener;
 import logic.GameState;
 
 public class NetworkManager {
 
-    public Input getInputs() {
-        return new Input();
+    public GameKeyListener getInputs() {
+        return new GameKeyListener();
     }
 
     public void push(GameState gameState) {
