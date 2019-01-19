@@ -27,7 +27,7 @@ public class Game {
     public void update() {
         // gets latest inputs from clients
         inputManager.updateInputs(networkManager.getInputs());
-        gameState.update();
+        gameState.update(inputManager);
         renderer.draw(gameState);
         if (isServer) {
             networkManager.push(gameState);
