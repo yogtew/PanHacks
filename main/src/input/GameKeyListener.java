@@ -15,6 +15,7 @@ public class GameKeyListener implements KeyListener {
    private static GameKeyListener getSingleton() {
        if (singleton == null) {
             singleton = new GameKeyListener();
+            EventsCenter.getSingleton().registerHandler(singleton);
        }
        return getSingleton();
    }
