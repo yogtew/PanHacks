@@ -1,11 +1,10 @@
 package graphics;
 
 import logic.GameState;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import javax.swing.JPanel;
 
 public class Renderer extends JPanel {
 
@@ -13,6 +12,7 @@ public class Renderer extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawCircle(g);
+        Maze maze = new Maze();
     }
 
     private void drawCircle(Graphics g) {
