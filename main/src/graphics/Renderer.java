@@ -27,7 +27,7 @@ public class Renderer extends JPanel {
 
         g2d.setRenderingHints(rh);
 
-        Ellipse2D.Double circle = new Ellipse2D.Double(0, 0, 100, 100);
+        Ellipse2D.Double circle = new Ellipse2D.Double(20, 20, 100, 100);
         g2d.fill(circle);
     }
 

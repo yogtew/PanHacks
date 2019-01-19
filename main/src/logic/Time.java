@@ -1,7 +1,7 @@
 package logic;
 
-/*
-Time between each frame
+/**
+ *Time between each frame
  */
 public class Time {
 
