@@ -6,7 +6,7 @@ import logic.GameState;
 public class NetworkManager {
 
     public GameKeyListener getInputs() {
-        return new GameKeyListener();
+        return GameKeyListener.getSingleton();
     }
 
     public void push(GameState gameState) {
