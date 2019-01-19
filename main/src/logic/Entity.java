@@ -2,18 +2,16 @@ package logic;
 
 import input.InputManager;
 
-import java.util.ArrayList;
-
 public class Entity {
 
     public Vector cSpeed;
 
-    public Vector center;
+    public Vector position;
     public float radius;
 
     public Entity() {
         cSpeed = Vector.zero;
-        center = Vector.zero;
+        position = Vector.zero;
         radius = 0;
     }
 
@@ -35,7 +33,7 @@ public class Entity {
     public void updatePhysics() {
         cSpeed = cSpeed.mulConst(0.95f);
         Vector dist = cSpeed.mulConst(Time.deltaTime);
-        center = center.add(dist); //updating circle's center += speed*deltaTime, updating circle's new position
+        position = position.add(dist); //updating circle's position += speed*deltaTime, updating circle's new position
     }
 
     public void draw() {
