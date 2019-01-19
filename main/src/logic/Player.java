@@ -6,17 +6,16 @@ import input.InputManager;
 public class Player extends Entity {
 
 
-
     public Player(Vector center, float radius) {
-
+        super();
         this.center = center;
         this.radius = radius;
 
     }
 
     @Override
-    public void update(InputManager inputManager) {
-        super.update(inputManager);
+    public void update(InputManager inputManager, GameState gameState) {
+        super.update(inputManager, gameState);
         this.cSpeed = this.cSpeed.add(new Vector(10f, 0));
     }
 
@@ -32,5 +31,15 @@ public class Player extends Entity {
         } else {
             return true;
         }
+    }
+
+    /**
+     * If two entities collide
+     */
+    public void collisionControl(Player player) {
+
+       cSpeed.x = 0;
+       cSpeed.y = 0;
+
     }
 }

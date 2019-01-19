@@ -1,14 +1,14 @@
 package logic;
 
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
-
 import graphics.Renderer;
 import input.GameKeyListener;
 import input.InputManager;
 import network.NetworkManager;
+
+import javax.swing.*;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Game extends JFrame {
     private Renderer renderer;
