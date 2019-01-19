@@ -5,7 +5,8 @@ package logic;
  */
 public class Time {
 
-    public static float deltaTime; //time difference between each frame
+    public static float deltaTime = 0; //time difference between each frame
+    public static long lastTime = 0;
 
 
 

@@ -17,7 +17,7 @@ public class Player extends Entity {
     @Override
     public void update(InputManager inputManager) {
         super.update(inputManager);
-        this.cSpeed = this.cSpeed.add(new Vector(0.01f, 0));
+        this.cSpeed = this.cSpeed.add(new Vector(10f, 0));
     }
 
     /**

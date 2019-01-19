@@ -38,12 +38,14 @@ public class Game extends JFrame {
     public void update() throws InterruptedException {
         // gets latest inputs from clients
         // inputManager.updateInputs(networkManager.getInputs());
+        Time.deltaTime = (System.currentTimeMillis() - Time.lastTime)/1000f;
         gameState.update(inputManager);
         if (isServer) {
             networkManager.push(gameState);
         }
 
-
+        renderer.repaint();
+        Time.lastTime = System.currentTimeMillis();
         Thread.sleep(15);
         update();
     }
@@ -54,6 +56,7 @@ public class Game extends JFrame {
         renderer = new Renderer(gameState);
         networkManager = new NetworkManager();
         initUI();
+        Time.lastTime = System.currentTimeMillis();
         logger.log(Level.INFO, "Successfully initialized with id " + id);
     }
 

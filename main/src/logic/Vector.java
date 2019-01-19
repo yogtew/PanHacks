@@ -42,4 +42,6 @@ public class Vector {
         float y = this.y / vector.y;
         return new Vector(x, y);
     }
+
+    public static Vector zero = new Vector(0, 0);
 }

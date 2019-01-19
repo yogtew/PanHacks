@@ -10,6 +10,12 @@ public class Entity {
     public Vector center;
     public float radius;
 
+    public Entity() {
+        cSpeed = Vector.zero;
+        center = Vector.zero;
+        radius = 0;
+    }
+
     public void update(InputManager inputManager) {
         // update position
 
