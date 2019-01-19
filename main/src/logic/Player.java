@@ -7,7 +7,7 @@ public class Player extends Entity {
 
 
     public Player(Vector center, float radius) {
-
+        super();
         this.center = center;
         this.radius = radius;
 

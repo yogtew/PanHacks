@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 public class Entity {
 
-    public logic.Vector cOldSpeed;
-    public logic.Vector cSpeed;
+    public Vector cSpeed;
 
     public Vector center;
     public float radius;
@@ -31,10 +30,9 @@ public class Entity {
     }
 
     /**
-     *Updates the position
+     * Updates the position
      */
     public void updatePhysics() {
-        cOldSpeed = cSpeed;
         Vector dist = cSpeed.mulConst(Time.deltaTime);
         center = center.add(dist); //updating circle's center += speed*deltaTime, updating circle's new position
     }

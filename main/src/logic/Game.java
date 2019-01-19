@@ -42,7 +42,7 @@ public class Game extends JFrame {
         // gets latest inputs from clients
         // inputManager.updateInputs(networkManager.getInputs());
         Time.deltaTime = (System.currentTimeMillis() - Time.lastTime)/1000f;
-        gameState.update(inputManager, gameState);
+        gameState.update(inputManager);
         if (isServer) {
             networkManager.push(gameState);
         }
