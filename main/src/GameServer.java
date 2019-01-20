@@ -48,6 +48,7 @@ public class GameServer {
         // inputManager.updateInputs(networkServer.getInputs());
         Time.deltaTime = (System.currentTimeMillis() - Time.lastTime)/1000f;
         gameState.update(inputManager);
+        networkServer.push();
 
         Time.lastTime = System.currentTimeMillis();
         Thread.sleep(15);

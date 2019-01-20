@@ -49,9 +49,9 @@ public class NetworkServer implements Runnable {
         }
     }
 
-    public void push(GameState gameState) {
+    public void push() {
         for (NetworkServerThread t: threads) {
-            t.push(gameState);
+            t.push();
         }
     }
 }
@@ -62,11 +62,16 @@ class NetworkServerThread extends Thread {
     BufferedReader in;
     public int id;
     private GameState gameState;
+    private boolean connected = false;
 
     NetworkServerThread(Socket clientSocket, GameState gameState) {
+        this.clientSocket = clientSocket;
+        this.gameState = gameState;
+    }
+
+    public void run() {
         String fromClient;
         Logger logger = Logger.getGlobal();
-        this.clientSocket = clientSocket;
         try {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(
@@ -78,6 +83,7 @@ class NetworkServerThread extends Thread {
             id = Integer.parseInt(fromClient);
             logger.log(Level.INFO, "Received id from client: " + id);
 
+            connected = true;
             // send gamestate
             out.println(gameState.serialize());
 
@@ -96,7 +102,12 @@ class NetworkServerThread extends Thread {
         }
     }
 
-    void push(GameState gameState) {
+    void push() {
+        if (!connected) {
+            return;
+        }
+        Logger.getGlobal().log(Level.INFO,
+                String.format("Sending shit to client: %d \n", id));
         out.print(gameState.serialize());
     }
 }
