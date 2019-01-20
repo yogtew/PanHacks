@@ -40,7 +40,12 @@ public class Player extends Entity {
         }
 
         if (InputManager.getKey("space", id)) {
-            //this.cSpeed.y -= 5;
+            double angleToShoot = Math.atan2(this.cSpeed.y, this.cSpeed.x);
+            double bSpeedX = Math.cos(angleToShoot);
+            double bSpeedY = Math.sin(angleToShoot);
+            Vector speed = new Vector((float)bSpeedX, (float)bSpeedY).mulConst(500);
+            gameState.spawnBullet(speed, this.center);
+
         }
 
         //in each frame, check for collision for each player against all other players

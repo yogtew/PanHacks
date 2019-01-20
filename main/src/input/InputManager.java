@@ -29,6 +29,7 @@ public class InputManager {
         mappings.put(65, "left");
         mappings.put(83, "down");
         mappings.put(68, "right");
+        mappings.put(32, "space");
         /*for (int i = 0; i < 4; i++) {
             HashMap<String, Boolean> hmap = new HashMap<>();
             hmap.put("up", false);
