@@ -59,8 +59,8 @@ public class Renderer extends JPanel {
         // drawWall(100, 100, 100, 100);
 
         for (Wall p:gameState.getWalls()) {
-            float x = p.x;
-            float y = p.y;
+            float x = p.center.x;
+            float y = p.center.y;
             float w = p.side1;
             float h = p.side2;
             drawWall(x, y, w, h);

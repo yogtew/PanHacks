@@ -1,9 +1,9 @@
 package input;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import events.EventsCenter;
 import events.KeyPressedEvent;
@@ -15,12 +15,18 @@ import events.KeyReleasedEvent;
  */
 public class InputManager {
 
+    HashMap<Integer, String> mappings = new HashMap<>();
+
     private static InputManager singleton;
     private HashMap<Integer, HashMap<String, Boolean>> playerInputs;
 
     private InputManager() {
         EventsCenter.getSingleton().registerHandler(this);
         playerInputs = new HashMap<>();
+        mappings.put(87, "up");
+        mappings.put(65, "left");
+        mappings.put(83, "down");
+        mappings.put(68, "right");
         /*for (int i = 0; i < 4; i++) {
             HashMap<String, Boolean> hmap = new HashMap<>();
             hmap.put("up", false);
@@ -69,6 +75,7 @@ public class InputManager {
     @Subscribe
     public void updateKeyPress(KeyPressedEvent e) {
         char c = e.getKeyEvent().getKeyChar();
+
         switch (c) {
             case 'w':
                 playerInputs.get(1).put("up", true);
@@ -104,4 +111,13 @@ public class InputManager {
         }
     }
 
+    public void update(int id, int key, boolean status) {
+        Logger logger = Logger.getGlobal();
+        if(!playerInputs.containsKey(id)) {
+            logger.log(Level.SEVERE, "invalid id: " + id);
+            return;
+        }
+        playerInputs.get(id).put(mappings.get(key), status);
+        logger.log(Level.INFO, String.format("Updated key %s to %s (id: %s", mappings.get(key), status, id));
+    }
 }
