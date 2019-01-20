@@ -18,6 +18,7 @@ public class Wall extends Entity {
         this.center = new Vector(x, y);
         this.side1 = side1;
         this.side2 = side2;
+        this.radius = side1;
         this.color = color;
     }
 }

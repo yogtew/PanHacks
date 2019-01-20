@@ -63,7 +63,7 @@ public class Renderer extends JPanel {
             float y = p.center.y;
             float w = p.side1;
             float h = p.side2;
-            drawWall(x, y, w, h);
+            drawWall(x + w/2, y + h/2, w, h);
         }
     }
 }
