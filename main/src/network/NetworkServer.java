@@ -9,6 +9,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import input.InputManager;
 import logic.GameState;
 
 /**
@@ -82,6 +84,7 @@ class NetworkServerThread extends Thread {
             fromClient = in.readLine();
             id = Integer.parseInt(fromClient);
             logger.log(Level.INFO, "Received id from client: " + id);
+            gameState.registerPlayer(id);
 
             connected = true;
             // send gamestate
@@ -93,9 +96,10 @@ class NetworkServerThread extends Thread {
                 Logger.getGlobal().log(Level.INFO,
                         String.format("Received packet from client %d: %s \n", id, fromClient));
                 String[] split = fromClient.split(":");
-                String key = split[0];
-                boolean status = Boolean.parseBoolean(split[1]);
-                // TODO: update inputmanager
+                int id = Integer.parseInt(split[0]);
+                int key = Integer.parseInt(split[1]);
+                boolean status = Boolean.parseBoolean(split[2]);
+                InputManager.getSingleton().update(id, key, status);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -106,8 +110,6 @@ class NetworkServerThread extends Thread {
         if (!connected) {
             return;
         }
-        Logger.getGlobal().log(Level.INFO,
-                String.format("Sending shit to client: %d \n", id));
-        out.print(gameState.serialize());
+        out.println(gameState.serialize());
     }
 }

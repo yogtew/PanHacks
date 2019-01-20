@@ -50,12 +50,13 @@ public class GameClient extends JFrame {
 
     public void init() {
         id = generateId();
-        networkManager = new NetworkClient(id, "localhost", 3000);
-
         gameState = new GameState(Maze.generateGrid());
+        networkManager = new NetworkClient(id, "localhost", 3000, gameState);
+
         renderer = new Renderer(gameState);
         renderer.addKeyListener(gameKeyListener);
         renderer.setFocusable(true);
+        setVisible(true);
 
         initUI();
         Time.lastTime = System.currentTimeMillis();
