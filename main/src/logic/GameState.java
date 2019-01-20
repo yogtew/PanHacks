@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class GameState {
     private ArrayList<Player> players;
     private ArrayList<Wall> walls;
+    private ArrayList<Bullet> bullets;
     GameState(ArrayList<Wall> walls) {
         players = new ArrayList<>();
         this.walls = walls;
@@ -27,6 +28,10 @@ public class GameState {
         for (Wall p: walls) {
             p.update(inputManager, this);
         }
+    }
+
+    public String serialize() {
+        return "";
     }
 
     public ArrayList<Player> getPlayers() {

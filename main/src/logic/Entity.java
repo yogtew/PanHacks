@@ -2,31 +2,22 @@ package logic;
 
 import input.InputManager;
 
-import java.util.ArrayList;
-
 public class Entity {
 
     public Vector cSpeed;
 
-    public Vector center;
+    public Vector position;
     public float radius;
 
     public Entity() {
         cSpeed = Vector.zero;
-        center = Vector.zero;
+        position = Vector.zero;
         radius = 0;
     }
 
     public void update(InputManager inputManager, GameState gameState) {
         // update positions
         updatePhysics();
-        // check if collision occurs
-       /* ArrayList<Player> players = gameState.getPlayers();
-        Player player1 = players.get(0);
-        Player player2 = players.get(1);
-        if (player1.overlaps(player2)) {
-            player1.collisionControl(player2);
-        }*/
     }
 
     /**
@@ -35,11 +26,7 @@ public class Entity {
     public void updatePhysics() {
         cSpeed = cSpeed.mulConst(0.95f);
         Vector dist = cSpeed.mulConst(Time.deltaTime);
-        center = center.add(dist); //updating circle's center += speed*deltaTime, updating circle's new position
-    }
-
-    public void draw() {
-        // draw a circle
+        position = position.add(dist); //updating circle's position += speed*deltaTime, updating circle's new position
     }
 
 }
