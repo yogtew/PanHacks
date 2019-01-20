@@ -39,6 +39,10 @@ public class Player extends Entity {
             this.cSpeed.x += speed;
         }
 
+        if (InputManager.getKey("space", id)) {
+            //this.cSpeed.y -= 5;
+        }
+
         //in each frame, check for collision for each player against all other players
         for (Player p : gameState.getPlayers()) {
             for (Player p1 : gameState.getPlayers()) {
