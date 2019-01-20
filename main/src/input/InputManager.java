@@ -69,6 +69,7 @@ public class InputManager {
     @Subscribe
     public void updateKeyPress(KeyPressedEvent e) {
         char c = e.getKeyEvent().getKeyChar();
+
         switch (c) {
             case 'w':
                 playerInputs.get(1).put("up", true);
