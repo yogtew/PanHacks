@@ -11,7 +11,7 @@ public class Player extends Entity {
 
     public Player(Vector center, float radius, int id) {
         super();
-        this.position = center;
+        this.center = center;
         this.radius = radius;
         this.id = id;
 
@@ -39,20 +39,24 @@ public class Player extends Entity {
         }
 
         //in each frame, check for collision for each player against all other players
-        for (Player p: gameState.getPlayers()) {
-            for (Player p1: gameState.getPlayers()) {
-                if (p!=p1) { //not ownself
+        for (Player p : gameState.getPlayers()) {
+            for (Player p1 : gameState.getPlayers()) {
+                if (p != p1) { //not ownself
                     p.collisionControl(p1);
                 }
+            }
+        }
 
-        for (Wall w: gameState.getWalls()) {
-            Vector delta = w.position.sub(this.position);
+        /*for (Wall w : gameState.getWalls()) {
+            Vector delta = w.center.sub(this.center);
             if (Math.abs(delta.x) + Math.abs(delta.y) < this.radius + w.radius) {
 
 
             }
         }
+        */
     }
+
 
 
     /**
@@ -60,9 +64,9 @@ public class Player extends Entity {
      *more or less than the sum of the two radii
      */
     public boolean overlaps(Player other) {
-        if ( Math.abs(position.x - other.position.x) > radius + other.radius ) {
+        if ( Math.abs(center.x - other.center.x) > radius + other.radius ) {
             return false;
-        } else if ( Math.abs(position.y - other.position.y) > radius + other.radius ) {
+        } else if ( Math.abs(center.y - other.center.y) > radius + other.radius ) {
             return false;
         } else {
             return true;
