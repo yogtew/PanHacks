@@ -8,7 +8,7 @@ import input.InputManager;
 public class Player extends Entity {
 
     public int id;
-    private int speed = 10;
+    private int speed = 30;
 
     public Player(Vector center, float radius, int id) {
         super();
@@ -50,13 +50,19 @@ public class Player extends Entity {
 
         for (Wall w: gameState.getWalls()) {
             Vector delta = w.center.sub(this.center);
+            double dist = Math.sqrt(delta.x * delta.x + delta.y * delta.y);
+            if (dist < this.radius + w.radius) {
+                double angle = Math.atan2(-delta.y, -delta.x);
+                this.cSpeed = this.cSpeed.add(new Vector(Math.cos(angle), Math.sin(angle)).mulConst(10));
+            }
+            /*
             if (Math.abs(delta.x) * 2< this.radius + w.radius
              && Math.abs(delta.y) * 2< this.radius + w.radius) {
                 double angle = Math.atan2(-delta.y, -delta.x);
                 this.cSpeed = this.cSpeed.add(new Vector(Math.cos(angle), Math.sin(angle)).mulConst(10));
                 // Vector pos = new Vector((float) Math.cos(angle), (float) Math.sin(angle)).mulConst(this.radius + w.radius).mulConst(0.5f).add(w.center);
                 // this.center = pos;
-            }
+            }*/
         }
 
 
