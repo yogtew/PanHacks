@@ -8,6 +8,7 @@ import input.InputManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Random;
 
 public class GameState {
@@ -17,6 +18,7 @@ public class GameState {
     public GameState(ArrayList<Wall> walls) {
         players = new ArrayList<>();
         this.walls = walls;
+        bullets = new ArrayList<>();
 
         //when player joins game must be added to the player arraylist
 
@@ -38,15 +40,22 @@ public class GameState {
         for (Wall w: walls) {
             w.update(inputManager, this);
         }
+
+        for (Bullet b: bullets) {
+            b.update(inputManager, this);
+        }
+
     }
 
     public String serialize() {
-        return new Gson().toJson(players);
+        Container container = new Container(players, bullets);
+        return new Gson().toJson(container);
     }
 
     public void apply(String newState) {
-        Player[] arr = new Gson().fromJson(newState, Player[].class);
-        players = new ArrayList<>(Arrays.asList(arr));
+        Container c = new Gson().fromJson(newState, Container.class);
+        players = c.players;
+        bullets = c.bullets;
     }
 
     public ArrayList<Player> getPlayers() {
@@ -55,5 +64,22 @@ public class GameState {
 
     public Iterable<? extends Wall> getWalls() {
         return walls;
+    }
+
+    public ArrayList<Bullet> getBullets() { return bullets;}
+
+    public void spawnBullet(Vector speed, Vector center) {
+        Bullet bullet = new Bullet(speed, center);
+        bullets.add(bullet);
+    }
+
+}
+
+class Container {
+    public ArrayList<Player> players;
+    public ArrayList<Bullet> bullets;
+    public Container(ArrayList<Player> players, ArrayList<Bullet> bullets) {
+        this.players = players;
+        this.bullets = bullets;
     }
 }

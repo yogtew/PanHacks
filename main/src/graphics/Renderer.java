@@ -4,6 +4,7 @@ import logic.GameState;
 import javax.swing.*;
 import java.awt.*;
 import logic.Player;
+import logic.Bullet;
 import java.awt.geom.Ellipse2D;
 
 public class Renderer extends JPanel {
@@ -65,5 +66,13 @@ public class Renderer extends JPanel {
             float h = p.side2;
             drawWall(x, y, w, h);
         }
+
+        for (Bullet b:gameState.getBullets()) {
+            float x = b.center.x;
+            float y = b.center.y;
+            float r = b.radius;
+            drawCircle(x, y, r, r);
+        }
+
     }
 }
