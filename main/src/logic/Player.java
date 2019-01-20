@@ -63,9 +63,7 @@ public class Player extends Entity {
      * If two entities collide
      */
     public void collisionControl(Player player) {
-
        cSpeed.x = 0;
        cSpeed.y = 0;
-
     }
 }

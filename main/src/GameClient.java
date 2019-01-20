@@ -30,6 +30,8 @@ public class GameClient extends JFrame {
     }
 
     public void initUI() {
+        Logger.getGlobal().log(Level.INFO,
+                "Initializing UI");
         add(renderer);
         setTitle("PanHacks Game");
         setSize(1200, 800);
@@ -49,8 +51,6 @@ public class GameClient extends JFrame {
     public void init() {
         id = generateId();
         networkManager = new NetworkClient(id, "localhost", 3000);
-        System.exit(1);
-
 
         gameState = new GameState(Maze.generateGrid());
         renderer = new Renderer(gameState);
@@ -60,6 +60,8 @@ public class GameClient extends JFrame {
         initUI();
         Time.lastTime = System.currentTimeMillis();
         logger.log(Level.INFO, "Successfully initialized with id " + id);
+
+        start();
     }
 
     public void start() {

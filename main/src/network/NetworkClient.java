@@ -37,9 +37,8 @@ public class NetworkClient {
 
             // wait for gameState
             String fromServer;
-            while ((fromServer = in.readLine()) != null) {
-                System.out.println("Server: " + fromServer);
-            }
+            fromServer = in.readLine();
+            System.out.println("Server: " + fromServer);
             logger.log(Level.INFO, "Received gameState");
 
             // setup runnable to keep receive stuff from server
