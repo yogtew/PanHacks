@@ -1,6 +1,7 @@
 package logic;
 
 
+import graphics.Wall;
 import input.InputManager;
 
 
@@ -42,14 +43,24 @@ public class Player extends Entity {
         }
 
         //in each frame, check for collision for each player against all other players
-        for (Player p: gameState.getPlayers()) {
-            for (Player p1: gameState.getPlayers()) {
-                if (p!=p1) { //not ownself
+        for (Player p : gameState.getPlayers()) {
+            for (Player p1 : gameState.getPlayers()) {
+                if (p != p1) { //not ownself
                     p.collisionControl(p1);
                 }
             }
         }
+
+        /*for (Wall w : gameState.getWalls()) {
+            Vector delta = w.center.sub(this.center);
+            if (Math.abs(delta.x) + Math.abs(delta.y) < this.radius + w.radius) {
+
+
+            }
+        }
+        */
     }
+
 
 
     /**

@@ -1,5 +1,6 @@
 package input;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -51,6 +52,7 @@ public class InputManager {
         hmap.put("down", false);
         hmap.put("left", false);
         hmap.put("right", false);
+        hmap.put("space", false);
         getSingleton().playerInputs.put(id, hmap);
     }
 
@@ -68,38 +70,46 @@ public class InputManager {
 
     @Subscribe
     public void updateKeyPress(KeyPressedEvent e) {
-        char c = e.getKeyEvent().getKeyChar();
-        switch (c) {
-            case 'w':
+        int code = e.getKeyEvent().getKeyCode();
+
+        switch (code) {
+            case KeyEvent.VK_UP:
                 playerInputs.get(1).put("up", true);
                 break;
-            case 'a':
+            case KeyEvent.VK_LEFT:
                 playerInputs.get(1).put("left", true);
                 break;
-            case 's':
+            case KeyEvent.VK_DOWN:
                 playerInputs.get(1).put("down", true);
                 break;
-            case 'd':
+            case KeyEvent.VK_RIGHT:
                 playerInputs.get(1).put("right", true);
+                break;
+            case KeyEvent.VK_SPACE:
+                playerInputs.get(1).put("space", true);
                 break;
         }
     }
 
     @Subscribe
     public void updateKeyRelease(KeyReleasedEvent e) {
-        char c = e.getKeyEvent().getKeyChar();
-        switch (c) {
-            case 'w':
+        int code = e.getKeyEvent().getKeyCode();
+
+        switch (code) {
+            case KeyEvent.VK_UP:
                 playerInputs.get(1).put("up", false);
                 break;
-            case 'a':
+            case KeyEvent.VK_LEFT:
                 playerInputs.get(1).put("left", false);
                 break;
-            case 's':
+            case KeyEvent.VK_DOWN:
                 playerInputs.get(1).put("down", false);
                 break;
-            case 'd':
+            case KeyEvent.VK_RIGHT:
                 playerInputs.get(1).put("right", false);
+                break;
+            case KeyEvent.VK_SPACE:
+                playerInputs.get(1).put("space", false);
                 break;
         }
     }

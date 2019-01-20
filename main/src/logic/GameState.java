@@ -30,6 +30,10 @@ public class GameState {
         }
     }
 
+    public String serialize() {
+        return "";
+    }
+
     public ArrayList<Player> getPlayers() {
         return players;
     }
