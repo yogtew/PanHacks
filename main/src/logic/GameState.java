@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GameState {
     private ArrayList<Player> players;
     private ArrayList<Wall> walls;
-    GameState(ArrayList<Wall> walls) {
+    public GameState(ArrayList<Wall> walls) {
         players = new ArrayList<>();
         this.walls = walls;
 
@@ -19,13 +19,13 @@ public class GameState {
         players.add(new Player(new Vector(300, 300), 32, 2));
     }
 
-    void update(InputManager inputManager) {
+    public void update(InputManager inputManager) {
         for (Player p: players) {
             p.update(inputManager, this);
         }
 
-        for (Wall p: walls) {
-            p.update(inputManager, this);
+        for (Wall w: walls) {
+            w.update(inputManager, this);
         }
     }
 

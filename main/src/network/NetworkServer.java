@@ -1,6 +1,5 @@
 package network;
 
-import input.Input;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,30 +17,36 @@ import logic.GameState;
  *
  * Also accepts inputs updates and updates internal inputmanager
  */
-public class NetworkServer extends Thread {
+public class NetworkServer implements Runnable {
     int portNumber = 3000;
     ServerSocket serverSocket;
     Socket clientSocket;
     PrintWriter out;
     BufferedReader in;
     private ArrayList<NetworkServerThread> threads;
+    private GameState gameState;
 
-    public NetworkServer() {
+    public NetworkServer(GameState gameState) {
         threads = new ArrayList<>();
+        this.gameState = gameState;
+    }
+
+    @Override
+    public void run() {
+        Logger logger = Logger.getGlobal();
         try {
             serverSocket = new ServerSocket(portNumber);
             while (true) {
                 clientSocket = serverSocket.accept();
-                NetworkServerThread thread = new NetworkServerThread(clientSocket);
+                logger.log(Level.INFO, "Accepted a client");
+                NetworkServerThread thread = new NetworkServerThread(clientSocket, gameState);
                 threads.add(thread);
+                thread.start();
+                logger.log(Level.INFO, "Waiting for next client");
             }
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-    }
-
-    public Input getInputs() {
-        return new Input();
     }
 
     public void push(GameState gameState) {
@@ -56,18 +61,25 @@ class NetworkServerThread extends Thread {
     PrintWriter out;
     BufferedReader in;
     public int id;
+    private GameState gameState;
 
-    NetworkServerThread(Socket clientSocket) {
+    NetworkServerThread(Socket clientSocket, GameState gameState) {
         String fromClient;
+        Logger logger = Logger.getGlobal();
         this.clientSocket = clientSocket;
         try {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
 
+            logger.log(Level.INFO, "Waiting for client id...");
             // first thing client does when connecting is send id
             fromClient = in.readLine();
             id = Integer.parseInt(fromClient);
+            logger.log(Level.INFO, "Received id from client: " + id);
+
+            // send gamestate
+            out.println(gameState.serialize());
 
             while (true) {
                 // accepts inputs in the format key:value
