@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import input.Input;
 import logic.GameState;
 
 /**
@@ -38,11 +37,12 @@ public class NetworkClient {
             exception.printStackTrace();
         }
     }
-/*
-    public Input getInputs() {
+
+    /*public Input getInputs() {
         return new Input();
     }
-*/
+    */
+
     public void push(GameState gameState) {
         for (NetworkClientThread t: threads) {
             t.push(gameState);
