@@ -1,5 +1,6 @@
 package graphics;
 
+import logic.Bullet;
 import logic.GameState;
 import javax.swing.*;
 import java.awt.*;
@@ -64,6 +65,13 @@ public class Renderer extends JPanel {
             float w = p.side1;
             float h = p.side2;
             drawWall(x, y, w, h);
+        }
+
+        for (Bullet p:gameState.getBullets()) {
+            float x = p.center.x;
+            float y = p.center.y;
+            float r = p.radius;
+            drawCircle(x, y, r, r);
         }
     }
 }

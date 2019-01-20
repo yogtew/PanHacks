@@ -2,8 +2,6 @@ package logic;
 
 import input.InputManager;
 
-import java.util.ArrayList;
-
 public class Entity {
 
     public Vector cSpeed;

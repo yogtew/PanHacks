@@ -8,9 +8,12 @@ import java.util.ArrayList;
 public class GameState {
     private ArrayList<Player> players;
     private ArrayList<Wall> walls;
+    private ArrayList<Bullet> bullets;
+
     GameState(ArrayList<Wall> walls) {
         players = new ArrayList<>();
         this.walls = walls;
+        bullets = new ArrayList<>();
 
         //when player joins game must be added to the player arraylist
 
@@ -27,6 +30,10 @@ public class GameState {
         for (Wall p: walls) {
             p.update(inputManager, this);
         }
+
+        for (Bullet p: bullets) {
+            p.update(inputManager, this);
+        }
     }
 
     public ArrayList<Player> getPlayers() {
@@ -35,5 +42,9 @@ public class GameState {
 
     public Iterable<? extends Wall> getWalls() {
         return walls;
+    }
+
+    public ArrayList<Bullet> getBullets() {
+        return bullets;
     }
 }
