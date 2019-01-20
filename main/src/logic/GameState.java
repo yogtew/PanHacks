@@ -13,7 +13,7 @@ import java.util.Random;
 public class GameState {
     private ArrayList<Player> players;
     private transient ArrayList<Wall> walls;
-
+    private ArrayList<Bullet> bullets;
     public GameState(ArrayList<Wall> walls) {
         players = new ArrayList<>();
         this.walls = walls;
