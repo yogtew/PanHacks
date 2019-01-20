@@ -39,15 +39,6 @@ public class GameClient extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    /**
-     * Repaints frame
-     */
-    public void update() throws InterruptedException {
-        renderer.repaint();
-        Thread.sleep(15);
-        update();
-    }
-
     public void init() {
         id = generateId();
         gameState = new GameState(Maze.generateGrid());
@@ -66,11 +57,18 @@ public class GameClient extends JFrame {
     }
 
     public void start() {
-        try {
-            update();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Runnable update = () -> {
+            while (true) {
+                renderer.repaint();
+                try {
+                    Thread.sleep(15);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        update.run();
     }
 
     private int generateId() {

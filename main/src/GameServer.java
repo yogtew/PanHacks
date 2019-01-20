@@ -33,25 +33,24 @@ public class GameServer {
     }
 
     public void start() {
-        try {
-            update();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+        /**
+         * Core gameplay loop, calls the update method of all entities inside GameState
+         */
+        Runnable runnable = () -> {
+            while (true) {
+                Time.deltaTime = (System.currentTimeMillis() - Time.lastTime)/1000f;
+                gameState.update(inputManager);
+                networkServer.push();
 
-    /**
-     * Core gameplay loop, calls the update method of all entities inside GameState
-     */
-    public void update() throws InterruptedException {
-        // gets latest inputs from clients
-        // inputManager.updateInputs(networkServer.getInputs());
-        Time.deltaTime = (System.currentTimeMillis() - Time.lastTime)/1000f;
-        gameState.update(inputManager);
-        networkServer.push();
+                Time.lastTime = System.currentTimeMillis();
+                try {
+                    Thread.sleep(15);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
 
-        Time.lastTime = System.currentTimeMillis();
-        Thread.sleep(15);
-        update();
+        runnable.run();
     }
 }
