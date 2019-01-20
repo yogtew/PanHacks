@@ -39,13 +39,15 @@ public class Player extends Entity {
         }
 
         //in each frame, check for collision for each player against all other players
-        for (Player p: gameState.getPlayers()) {
-            for (Player p1: gameState.getPlayers()) {
-                if (p!=p1) { //not ownself
+        for (Player p : gameState.getPlayers()) {
+            for (Player p1 : gameState.getPlayers()) {
+                if (p != p1) { //not ownself
                     p.collisionControl(p1);
                 }
+            }
+        }
 
-        for (Wall w: gameState.getWalls()) {
+        for (Wall w : gameState.getWalls()) {
             Vector delta = w.position.sub(this.position);
             if (Math.abs(delta.x) + Math.abs(delta.y) < this.radius + w.radius) {
 
@@ -53,6 +55,7 @@ public class Player extends Entity {
             }
         }
     }
+
 
 
     /**
@@ -74,8 +77,8 @@ public class Player extends Entity {
      */
     public double distBtwnCenters (Player other) {
 
-        double xdiff = this.center.x - other.center.x;
-        double ydiff = this.center.y - other.center.y;
+        double xdiff = this.position.x - other.position.x;
+        double ydiff = this.position.y - other.position.y;
 
         return Math.sqrt( ( xdiff * xdiff ) + ( ydiff * ydiff ) );
     }
@@ -84,8 +87,8 @@ public class Player extends Entity {
      * Get vector connecting two centres
      */
     public Vector vecBtwnCenters (Player other) {
-        Vector center1 = this.center;
-        Vector center2 = other.center;
+        Vector center1 = this.position;
+        Vector center2 = other.position;
 
         return center2.sub(center1);
     }
@@ -97,8 +100,8 @@ public class Player extends Entity {
 
        if (this.distBtwnCenters(other) < this.radius) { //the dist between centers<radius of circle
            Vector recoveryVector = this.vecBtwnCenters(other); //one player move in direction if this vector, other opp
-           this.center = this.center.sub(recoveryVector.mulConst(0.3f));
-           other.center = other.center.add(recoveryVector.mulConst(0.3f));
+           this.position = this.position.sub(recoveryVector.mulConst(0.3f));
+           other.position = other.position.add(recoveryVector.mulConst(0.3f));
 
        }
     }
