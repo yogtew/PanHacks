@@ -1,10 +1,9 @@
 package input;
 
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import events.EventsCenter;
 import events.KeyPressedEvent;
@@ -16,12 +15,18 @@ import events.KeyReleasedEvent;
  */
 public class InputManager {
 
+    HashMap<Integer, String> mappings = new HashMap<>();
+
     private static InputManager singleton;
     private HashMap<Integer, HashMap<String, Boolean>> playerInputs;
 
     private InputManager() {
         EventsCenter.getSingleton().registerHandler(this);
         playerInputs = new HashMap<>();
+        mappings.put(87, "up");
+        mappings.put(65, "left");
+        mappings.put(83, "down");
+        mappings.put(68, "right");
         /*for (int i = 0; i < 4; i++) {
             HashMap<String, Boolean> hmap = new HashMap<>();
             hmap.put("up", false);
@@ -52,7 +57,6 @@ public class InputManager {
         hmap.put("down", false);
         hmap.put("left", false);
         hmap.put("right", false);
-        hmap.put("space", false);
         getSingleton().playerInputs.put(id, hmap);
     }
 
@@ -70,48 +74,50 @@ public class InputManager {
 
     @Subscribe
     public void updateKeyPress(KeyPressedEvent e) {
-        int code = e.getKeyEvent().getKeyCode();
+        char c = e.getKeyEvent().getKeyChar();
 
-        switch (code) {
-            case KeyEvent.VK_UP:
+        switch (c) {
+            case 'w':
                 playerInputs.get(1).put("up", true);
                 break;
-            case KeyEvent.VK_LEFT:
+            case 'a':
                 playerInputs.get(1).put("left", true);
                 break;
-            case KeyEvent.VK_DOWN:
+            case 's':
                 playerInputs.get(1).put("down", true);
                 break;
-            case KeyEvent.VK_RIGHT:
+            case 'd':
                 playerInputs.get(1).put("right", true);
-                break;
-            case KeyEvent.VK_SPACE:
-                playerInputs.get(1).put("space", true);
                 break;
         }
     }
 
     @Subscribe
     public void updateKeyRelease(KeyReleasedEvent e) {
-        int code = e.getKeyEvent().getKeyCode();
-
-        switch (code) {
-            case KeyEvent.VK_UP:
+        char c = e.getKeyEvent().getKeyChar();
+        switch (c) {
+            case 'w':
                 playerInputs.get(1).put("up", false);
                 break;
-            case KeyEvent.VK_LEFT:
+            case 'a':
                 playerInputs.get(1).put("left", false);
                 break;
-            case KeyEvent.VK_DOWN:
+            case 's':
                 playerInputs.get(1).put("down", false);
                 break;
-            case KeyEvent.VK_RIGHT:
+            case 'd':
                 playerInputs.get(1).put("right", false);
-                break;
-            case KeyEvent.VK_SPACE:
-                playerInputs.get(1).put("space", false);
                 break;
         }
     }
 
+    public void update(int id, int key, boolean status) {
+        Logger logger = Logger.getGlobal();
+        if(!playerInputs.containsKey(id)) {
+            logger.log(Level.SEVERE, "invalid id: " + id);
+            return;
+        }
+        playerInputs.get(id).put(mappings.get(key), status);
+        logger.log(Level.INFO, String.format("Updated key %s to %s (id: %s", mappings.get(key), status, id));
+    }
 }
