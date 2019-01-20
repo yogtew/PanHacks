@@ -85,6 +85,9 @@ public class InputManager {
             case KeyEvent.VK_RIGHT:
                 playerInputs.get(1).put("right", true);
                 break;
+            case KeyEvent.VK_SPACE:
+                playerInputs.get(1).put("space", true);
+                break;
         }
     }
 
@@ -104,6 +107,9 @@ public class InputManager {
                 break;
             case KeyEvent.VK_RIGHT:
                 playerInputs.get(1).put("right", false);
+                break;
+            case KeyEvent.VK_SPACE:
+                playerInputs.get(1).put("space", false);
                 break;
         }
     }
