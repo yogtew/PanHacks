@@ -11,7 +11,7 @@ public class Player extends Entity {
 
     public Player(Vector center, float radius, int id) {
         super();
-        this.position = center;
+        this.center = center;
         this.radius = radius;
         this.id = id;
 
@@ -47,13 +47,14 @@ public class Player extends Entity {
             }
         }
 
-        for (Wall w : gameState.getWalls()) {
-            Vector delta = w.position.sub(this.position);
+        /*for (Wall w : gameState.getWalls()) {
+            Vector delta = w.center.sub(this.center);
             if (Math.abs(delta.x) + Math.abs(delta.y) < this.radius + w.radius) {
 
 
             }
         }
+        */
     }
 
 
@@ -63,9 +64,9 @@ public class Player extends Entity {
      *more or less than the sum of the two radii
      */
     public boolean overlaps(Player other) {
-        if ( Math.abs(position.x - other.position.x) > radius + other.radius ) {
+        if ( Math.abs(center.x - other.center.x) > radius + other.radius ) {
             return false;
-        } else if ( Math.abs(position.y - other.position.y) > radius + other.radius ) {
+        } else if ( Math.abs(center.y - other.center.y) > radius + other.radius ) {
             return false;
         } else {
             return true;
@@ -77,8 +78,8 @@ public class Player extends Entity {
      */
     public double distBtwnCenters (Player other) {
 
-        double xdiff = this.position.x - other.position.x;
-        double ydiff = this.position.y - other.position.y;
+        double xdiff = this.center.x - other.center.x;
+        double ydiff = this.center.y - other.center.y;
 
         return Math.sqrt( ( xdiff * xdiff ) + ( ydiff * ydiff ) );
     }
@@ -87,8 +88,8 @@ public class Player extends Entity {
      * Get vector connecting two centres
      */
     public Vector vecBtwnCenters (Player other) {
-        Vector center1 = this.position;
-        Vector center2 = other.position;
+        Vector center1 = this.center;
+        Vector center2 = other.center;
 
         return center2.sub(center1);
     }
@@ -100,8 +101,8 @@ public class Player extends Entity {
 
        if (this.distBtwnCenters(other) < this.radius) { //the dist between centers<radius of circle
            Vector recoveryVector = this.vecBtwnCenters(other); //one player move in direction if this vector, other opp
-           this.position = this.position.sub(recoveryVector.mulConst(0.3f));
-           other.position = other.position.add(recoveryVector.mulConst(0.3f));
+           this.center = this.center.sub(recoveryVector.mulConst(0.3f));
+           other.center = other.center.add(recoveryVector.mulConst(0.3f));
 
        }
     }
