@@ -1,6 +1,5 @@
 package network;
 
-import input.Input;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,9 +39,10 @@ public class NetworkServer extends Thread {
         }
     }
 
-    public Input getInputs() {
+    /*public Input getInputs() {
         return new Input();
     }
+    */
 
     public void push(GameState gameState) {
         for (NetworkServerThread t: threads) {
